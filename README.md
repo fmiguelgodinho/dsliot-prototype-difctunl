@@ -27,7 +27,7 @@ We can describe the architecture's composition by the following different softwa
 ## Contact us
 
 For any questions or suggestions you may have, please get in touch with us:
-* Francisco Godinho (f.godinho@campus.fct.unl.pt)
-* Henrique Domingos (hj@fct.unl.pt)
+* Francisco Godinho, f.godinho@campus.fct.unl.pt
+* Henrique Domingos, hj@fct.unl.pt
 
 
