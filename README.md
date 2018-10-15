@@ -22,3 +22,12 @@ We can describe the architecture's composition by the following different softwa
 * The implementation of a set of test and benchmarking tools, and demonstrative client implementations, for system validation, assessment and experimental observations.
 
 
+## Instructions
+
+## Contact us
+
+For any questions or suggestions you may have, please get in touch with us:
+* Francisco Godinho (f.godinho@campus.fct.unl.pt)
+* Henrique Domingos (hj@fct.unl.pt)
+
+
