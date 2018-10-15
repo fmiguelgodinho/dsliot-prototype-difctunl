@@ -11,6 +11,4 @@ characteristics under Byzantine fault-tolerance settings, while preserving the b
 
 ## Architecture
 
-
-
-![](img/proto-arch.png?raw=true "Prototype Architecture Overview")
+<img src="img/proto-arch.png" width="100" title="Prototype Architecture Overview">
