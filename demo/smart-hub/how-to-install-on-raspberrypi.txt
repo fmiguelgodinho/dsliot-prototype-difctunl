@@ -1,0 +1,31 @@
+Please execute the following steps:
+
+1. Clone this repository;
+
+2. Install OpenJDK on the Pi:
+	"sudo apt-get update"
+	"sudo apt-get install openjdk-9-jdk-headless"
+	
+3. Install mongodb on the pi:
+	"sudo apt-get install mongodb"
+	
+4. Run mongodb on a forked shell:
+	"sudo mongod --fork --logpath /tmp/mongod.log"
+	
+   You may need to create the directory path "/data/db".
+   Use "sudo killall -15 mongod" if a mongod service persists attached to the port;
+
+5. Execute the jar file with root permissions (as it will attach to port 443):
+	"sudo java -jar dsl-api-1.0.0-jar-with-dependencies.jar"
+	
+
+
+Obs: If a native error lib appears with libnetty_tcnative, you may have to compile netty-tcnative (https://github.com/netty/netty-tcnative) from source and install its dependencies beforehand:
+
+	"sudo apt-get update"
+	"sudo apt-get install ninja-build cmake perl golang libssl-dev libapr1-dev autoconf automake libtool maven"
+	
+To compile netty-tcnative, checkout version 2.0.9.Final, change arch to 32 bits in pom.xml, and finally run:
+	"mvn install -DskipTests"
+
+Done.

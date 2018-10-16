@@ -13,7 +13,7 @@ Thus, we propose a decentralized ledgering solution for the IoT, leveraging a re
 The following Figure illustrates the architecture of the prototype:
 
 <p align="center">
-  <img src="img/proto-arch.png" width="600" title="Prototype Architecture Overview">
+  <img src="proto-arch.png" width="600" title="Prototype Architecture Overview">
 </p>
 
 The prototype is modeled in a tiered architecture composed by three different layers. These represent different software services and components:

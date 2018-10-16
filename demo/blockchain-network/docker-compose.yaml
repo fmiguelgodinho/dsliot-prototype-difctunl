@@ -1,0 +1,131 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+volumes:
+  orderer0.consensus.com:
+  orderer1.consensus.com:
+  peer0.blockchain-a.com:
+  peer0.blockchain-b.com:
+  peer0.blockchain-c.com:
+  peer0.blockchain-d.com:
+  peer0.blockchain-e.com:
+  peer0.blockchain-f.com:
+
+networks:
+  hlf:
+  osn:
+
+services:
+
+  orderer0.consensus.com:
+    dns_search: .
+    container_name: orderer0.consensus.com
+    extends:
+      file: base/docker-compose-base.yaml
+      service: orderer0.consensus.com
+    networks:
+      - hlf
+      - osn
+
+  orderer1.consensus.com:
+    dns_search: .
+    container_name: orderer1.consensus.com
+    extends:
+      file: base/docker-compose-base.yaml
+      service: orderer1.consensus.com
+    networks:
+      - hlf
+      - osn
+
+  peer0.blockchain-a.com:
+    dns_search: .
+    container_name: peer0.blockchain-a.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.blockchain-a.com
+    networks:
+      - hlf
+
+  peer0.blockchain-c.com:
+    dns_search: .
+    container_name: peer0.blockchain-c.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.blockchain-c.com
+    networks:
+      - hlf
+
+  peer0.blockchain-d.com:
+    dns_search: .
+    container_name: peer0.blockchain-d.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.blockchain-d.com
+    networks:
+      - hlf
+
+  peer0.blockchain-b.com:
+    dns_search: .
+    container_name: peer0.blockchain-b.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.blockchain-b.com
+    networks:
+      - hlf
+
+  peer0.blockchain-e.com:
+    dns_search: .
+    container_name: peer0.blockchain-e.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.blockchain-e.com
+    networks:
+      - hlf
+
+  peer0.blockchain-f.com:
+    dns_search: .
+    container_name: peer0.blockchain-f.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.blockchain-f.com
+    networks:
+      - hlf
+
+  cli:
+    container_name: cli
+    image: fgodinho/fabric-tools:$IMAGE_TAG
+    tty: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.blockchain-a.com:7051
+      - CORE_PEER_LOCALMSPID=PeersAMSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/blockchain-a.com/peers/peer0.blockchain-a.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/blockchain-a.com/peers/peer0.blockchain-a.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/blockchain-a.com/peers/peer0.blockchain-a.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/blockchain-a.com/users/Admin@blockchain-a.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+        - /var/run/:/host/var/run/
+        - ./chaincode/:/opt/gopath/src/github.com/hyperledger/fabric/chaincode/go
+        - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+        - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    depends_on:
+      - orderer0.consensus.com
+      - orderer1.consensus.com
+      - peer0.blockchain-a.com
+      - peer0.blockchain-c.com
+      - peer0.blockchain-d.com
+      - peer0.blockchain-b.com
+      - peer0.blockchain-e.com
+      - peer0.blockchain-f.com
+    networks:
+      - hlf

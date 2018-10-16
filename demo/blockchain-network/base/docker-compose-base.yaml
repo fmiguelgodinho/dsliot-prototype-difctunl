@@ -1,0 +1,164 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+
+  orderer0.consensus.com:
+    container_name: orderer0.consensus.com
+    extends:
+      file: orderer-base.yaml
+      service: orderer-base
+    volumes:
+    - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+    - ../crypto-config/ordererOrganizations/consensus.com/orderers/orderer0.consensus.com/msp:/var/hyperledger/orderer/msp
+    - ../crypto-config/ordererOrganizations/consensus.com/orderers/orderer0.consensus.com/tls/:/var/hyperledger/orderer/tls
+    - orderer0.consensus.com:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+
+  orderer1.consensus.com:
+    container_name: orderer1.consensus.com
+    extends:
+      file: orderer-base.yaml
+      service: orderer-base
+    volumes:
+    - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+    - ../crypto-config/ordererOrganizations/consensus.com/orderers/orderer1.consensus.com/msp:/var/hyperledger/orderer/msp
+    - ../crypto-config/ordererOrganizations/consensus.com/orderers/orderer1.consensus.com/tls/:/var/hyperledger/orderer/tls
+    - orderer1.consensus.com:/var/hyperledger/production/orderer
+    ports:
+      - 8050:7050
+
+
+  peer0.blockchain-a.com:
+    container_name: peer0.blockchain-a.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.blockchain-a.com
+      - CORE_PEER_ADDRESS=peer0.blockchain-a.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.blockchain-a.com:7051
+      - CORE_PEER_LOCALMSPID=PeersAMSP
+      - THRESH_SIG_KEY_SHARE=AAAAAQAAAJAdPvbh8yEKndI8qGa2X87gC5mS+kr/0lkVWhrD52upfN5WnOu74d1Q3Cm8bpp7NziINl1wr6oomTUoBMJVMRDwxH/gP43Kwe9tyKM+zdGBa0wNIQlnvwpqe0S2MvHbhWup8CvX9L4MUKtgJ+xT8RDrq2ANZOFMdiQh/sEN06P+IEZztK9d/YprrCAy9wkCBTgAAACAU0tlRiIf4UiZXmIolCa01emf1WQGruAwGvCgN5hl9vX6O6IzTDDYytsCFYXKMlL5Umik7pIC6VtBDPfGscg3WFaJrjlq03OpsGifn+kBYjHlKmV7GBoT3bDebZFEVMF4u17abhVfpi9DzeSyUWg/MYCedqFd1Tnat62eBeD2Q0cAAAACAtAAAACABpkhUF+zzgn5jmiaDMd8M2g5En/3dZ9HuExgvXyMF0g5AU4GFJC4HS27WyOkJX9T3QjMriDL0RUOLq2tgBiYztCfRP8AIk5D7+qrKwXXKOFaGFIFTa0Xf2wVn/9VCaPGCGG8NdvIMByYRyhTY/MWwFIr01ecJWSA7BqQb50GsfYAAACAJr691joe8nIGZdW/abxMOU3+LWb5wHex1cxIMzITRc1UhgEU3fGTAPyV9mH4uLNQ/Msth+2ReMg60CtmLhfVA7wSxXvZXOPbgqlStORTJtTSyYNRN7U1L1CObI4IQZNfwk/QS5Y/P9NCMhNhcXMsoSVvaVgLgUITuF8THcNtUxQ=
+      - THRESH_SIG_GROUP_KEY=AAAABQAAAAYAAAADAQABAAAAgFNLZUYiH+FImV5iKJQmtNXpn9VkBq7gMBrwoDeYZfb1+juiM0ww2MrbAhWFyjJS+VJopO6SAulbQQz3xrHIN1hWia45atNzqbBon5/pAWIx5SplexgaE92w3m2RRFTBeLte2m4VX6YvQ83kslFoPzGAnnahXdU52retngXg9kNH
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/blockchain-a.com/peers/peer0.blockchain-a.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/blockchain-a.com/peers/peer0.blockchain-a.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.blockchain-a.com:/var/hyperledger/production
+    ports:
+      - 7051:7051
+      - 7053:7053
+
+  peer0.blockchain-b.com:
+    container_name: peer0.blockchain-b.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.blockchain-b.com
+      - CORE_PEER_ADDRESS=peer0.blockchain-b.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.blockchain-b.com:7051
+      - CORE_PEER_LOCALMSPID=PeersBMSP
+      - THRESH_SIG_KEY_SHARE=AAAAAgAAAJAxrsgwRxvlLQpUP6ncVvfmbL27i0KJnjQvHSy7ttjGE2FfG0ZqV+5VDqzJ7E1aO511H4yLiMVsLzocudIMdtZfmOjiYhnDt3/XFm8ivkutbAuizbaIw1cQVwqdzREJBqecdP88m0RXKxOE+6IwUO7I9XSj/3pTsA1TRi2yWZ2vfmDlVULT+1H3jWFKb5BPTa8AAACAU0tlRiIf4UiZXmIolCa01emf1WQGruAwGvCgN5hl9vX6O6IzTDDYytsCFYXKMlL5Umik7pIC6VtBDPfGscg3WFaJrjlq03OpsGifn+kBYjHlKmV7GBoT3bDebZFEVMF4u17abhVfpi9DzeSyUWg/MYCedqFd1Tnat62eBeD2Q0cAAAACAtAAAACANWEYrRkpqeoJgFh8i4fEw9iv48+BXjIFkA3VFUzU4MyyZv88GgRNwEzHpeHGYjOHQLWTAx2OfTU9cJ2VWWcxdPONiwr/0R2ampHK077iQOVFNT3jHTM+M45yXOIdEmQ/mypHiQ2lWvL8LdzXhBnqHTrLJh4Ou7HEXFTji9fzDRAAAACAE8/UctXDGx0z/ri/VqdskLVVI8/wmhApFCeuoj5/HZNq3CeZBwizR6O4ym6wYi7GC5c/1bwXX5HChWqjiwN/2/1P7nhX+UhJsICmEHgMlMs5/B/RzbwccifI2EE6cNKWF9dYr0y+244Ex3vkeXuQkWEYqmrT4sf4Ty0vfkjKZrI=
+      - THRESH_SIG_GROUP_KEY=AAAABQAAAAYAAAADAQABAAAAgFNLZUYiH+FImV5iKJQmtNXpn9VkBq7gMBrwoDeYZfb1+juiM0ww2MrbAhWFyjJS+VJopO6SAulbQQz3xrHIN1hWia45atNzqbBon5/pAWIx5SplexgaE92w3m2RRFTBeLte2m4VX6YvQ83kslFoPzGAnnahXdU52retngXg9kNH
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/blockchain-b.com/peers/peer0.blockchain-b.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/blockchain-b.com/peers/peer0.blockchain-b.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.blockchain-b.com:/var/hyperledger/production
+    ports:
+      - 10051:7051
+      - 10053:7053
+
+  peer0.blockchain-c.com:
+    container_name: peer0.blockchain-c.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.blockchain-c.com
+      - CORE_PEER_ADDRESS=peer0.blockchain-c.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.blockchain-c.com:7051
+      - CORE_PEER_LOCALMSPID=PeersCMSP
+      - THRESH_SIG_KEY_SHARE=AAAAAwAAAJA3KV5ujW7bQFs1HnJwr1n0KoZG76zoXAd8IoUCpEri/kbULXVWHGbbjQ1lSaYQ5GuXu0fuyzo689ZbHm/dfBe6QR/C2eLOQz5D8FhbhvcDx/8KrLjLDvTFQSCRhZak9ciEKeCtaCPJqG/csLqcWpaQtAhDZ7CScVrW721xdLzoRapGLHLN0IhSc9ADWWcmKjQAAACAU0tlRiIf4UiZXmIolCa01emf1WQGruAwGvCgN5hl9vX6O6IzTDDYytsCFYXKMlL5Umik7pIC6VtBDPfGscg3WFaJrjlq03OpsGifn+kBYjHlKmV7GBoT3bDebZFEVMF4u17abhVfpi9DzeSyUWg/MYCedqFd1Tnat62eBeD2Q0cAAAACAtAAAACAD2bIiXAfr/ceNEnBuuJVUxovCZApxjfv9YEraEq2FPdUW1UjYFiPIYYpprWpjSV9tiqmWxpMJv8BzjY9BsJ6IZMcV11fdfyuelPRW2ezB0oZmPDw/IOT4LRpUQG280WJ/yM1BEHbZ73h9mMVAEpiKHW2ED1Cn4kupAbiGlfL6tAAAACAO5xI93EwU4S7rkLql2l6f2tNnGd1f029vOT4j1LG+5GRTWEhHWGmW7eQADWMH03kDmrsgLvhKMyg6rc4Bl2PWVTOO7D+/l8QoP8/0xk+Dbfk4i/b0SVDG9/j0g/IEsYp6HdPrxpKHL6lzyIPXjKOQNg/VY088EiWbWJAaw6uWVc=
+      - THRESH_SIG_GROUP_KEY=AAAABQAAAAYAAAADAQABAAAAgFNLZUYiH+FImV5iKJQmtNXpn9VkBq7gMBrwoDeYZfb1+juiM0ww2MrbAhWFyjJS+VJopO6SAulbQQz3xrHIN1hWia45atNzqbBon5/pAWIx5SplexgaE92w3m2RRFTBeLte2m4VX6YvQ83kslFoPzGAnnahXdU52retngXg9kNH
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/blockchain-c.com/peers/peer0.blockchain-c.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/blockchain-c.com/peers/peer0.blockchain-c.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.blockchain-c.com:/var/hyperledger/production
+
+    ports:
+      - 8051:7051
+      - 8053:7053
+
+  peer0.blockchain-d.com:
+    container_name: peer0.blockchain-d.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.blockchain-d.com
+      - CORE_PEER_ADDRESS=peer0.blockchain-d.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.blockchain-d.com:7051
+      - CORE_PEER_LOCALMSPID=PeersDMSP
+      - THRESH_SIG_KEY_SHARE=AAAABAAAAJAev+UDkrEksUY9VFu+0e++az05CDe+aJLDtBB6GC8lNumL+IyaHnresn6r2XkhHrpGBLm+VPGIjmz2jldHuE11kNUxt4s2rcfJF+sqizJ9MJMKDNNWPnwaXMw+AC+T9+v0IxXTAMAArTsfSgaNiXjXEjbhZdCvOoHMIoTaiYED6xq5Knd9IKPMbcLOINQMMisAAACAU0tlRiIf4UiZXmIolCa01emf1WQGruAwGvCgN5hl9vX6O6IzTDDYytsCFYXKMlL5Umik7pIC6VtBDPfGscg3WFaJrjlq03OpsGifn+kBYjHlKmV7GBoT3bDebZFEVMF4u17abhVfpi9DzeSyUWg/MYCedqFd1Tnat62eBeD2Q0cAAAACAtAAAACAM1NUskM6JzbxeAoaMVB8DdZIPvC/jokWrI/dB+gbLzSP+pRbkPMqCZOEUlFw/BTrrBjHaBShZcbYkOTax8HwA2PWwTvbqRpM7qG9GIjBCDH/zvVTHj5Taocw47G9/baBVT4II+3kxtGmIYdGRqQMIAVg735hvfB4gbAbGjjSsgoAAACAFeA5hFCgZlmX7WVHVJn5JUDWAJrETWE1PWZyoC0Qrol9BG9hXFrYl68eTFfVQMxoaFxkxnlgTAFaDEqX4kNgXH3q2N0nS0aBxJJ3OOmXgqD2Mogc6KpjbYKToXtQPFFFEp4xZKWJ1jjvBFTDrqA4N3DfoSRoWjT4yVoJtL2vYxQ=
+      - THRESH_SIG_GROUP_KEY=AAAABQAAAAYAAAADAQABAAAAgFNLZUYiH+FImV5iKJQmtNXpn9VkBq7gMBrwoDeYZfb1+juiM0ww2MrbAhWFyjJS+VJopO6SAulbQQz3xrHIN1hWia45atNzqbBon5/pAWIx5SplexgaE92w3m2RRFTBeLte2m4VX6YvQ83kslFoPzGAnnahXdU52retngXg9kNH
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/blockchain-d.com/peers/peer0.blockchain-d.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/blockchain-d.com/peers/peer0.blockchain-d.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.blockchain-d.com:/var/hyperledger/production
+    ports:
+      - 9051:7051
+      - 9053:7053
+
+
+
+  peer0.blockchain-e.com:
+    container_name: peer0.blockchain-e.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.blockchain-e.com
+      - CORE_PEER_ADDRESS=peer0.blockchain-e.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.blockchain-e.com:7051
+      - CORE_PEER_LOCALMSPID=PeersEMSP
+      - THRESH_SIG_KEY_SHARE=AAAABQAAAJAEc9ezuFx4zgub7Yxq4NYJ1+quGUYd++24Q64zudzyl7JnwaZcKFwtFjyjR8YpydWPHaEG86nxt614jy12CWUAmuMv/fxVjAF92YI7npivtoPmXlFdnT5DiYXeFvCALBw4ZDUOTsvpZ36XpF9ezULKllsxlTzhzhLquKBenP79vTLR9YjeNfpMJGFOiqQMKgwAAACAU0tlRiIf4UiZXmIolCa01emf1WQGruAwGvCgN5hl9vX6O6IzTDDYytsCFYXKMlL5Umik7pIC6VtBDPfGscg3WFaJrjlq03OpsGifn+kBYjHlKmV7GBoT3bDebZFEVMF4u17abhVfpi9DzeSyUWg/MYCedqFd1Tnat62eBeD2Q0cAAAACAtAAAACAQgahypDHtTFG4TSt3xJ6my0UfdYoU/oOQEkP0jxYKqlbR7OAWPzIfScOktwrc5Y0dDsGqS76K2HLcJKHOOA/2eIsmmYzIER0bwoTVuSisjbyrAp2DPGFetBdsv0HwKQciSu8Gz1QLaXhhzELOEc2XYWWJ96sBpmpGpWHbu0T9JsAAACAOE9pB3Kb6zCLuj4m7d61ODAoeXenhKyZ/IuDURJ49KJgFBWe0Nh4b5tq/7UvMNhYPfjl4klq58WgjzU8EXSfvk/l8Y9FshbTpkeQiR863+7qCpjVSOX0347KPjwGTb/cwhJMaVnzeN52Hm5ex6UX+fSBa+IT2R3xKbJwT9FiZjg=
+      - THRESH_SIG_GROUP_KEY=AAAABQAAAAYAAAADAQABAAAAgFNLZUYiH+FImV5iKJQmtNXpn9VkBq7gMBrwoDeYZfb1+juiM0ww2MrbAhWFyjJS+VJopO6SAulbQQz3xrHIN1hWia45atNzqbBon5/pAWIx5SplexgaE92w3m2RRFTBeLte2m4VX6YvQ83kslFoPzGAnnahXdU52retngXg9kNH
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/blockchain-e.com/peers/peer0.blockchain-e.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/blockchain-e.com/peers/peer0.blockchain-e.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.blockchain-e.com:/var/hyperledger/production
+    ports:
+      - 11051:7051
+      - 11053:7053
+
+  peer0.blockchain-f.com:
+    container_name: peer0.blockchain-f.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.blockchain-f.com
+      - CORE_PEER_ADDRESS=peer0.blockchain-f.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.blockchain-f.com:7051
+      - CORE_PEER_LOCALMSPID=PeersFMSP
+      - THRESH_SIG_KEY_SHARE=AAAABgAAAJAIbpLvRXJgTkBcpwNHrh+J+vijxzVjOca5gb16M4gUgJflpMREY9i8Mzs75YbFUZNWWmw5z3pKCw6xT4DdiGU0AAJ6TIyNuyYHFsUk0tFTF4HqHrvFQtoGX66rgVTREJgL6Z8l7PoURnhWMCKRT9tx+reOYSpf+hZvseoT2fQsHzCNI2H+bqVjotrd1PnRLokAAACAU0tlRiIf4UiZXmIolCa01emf1WQGruAwGvCgN5hl9vX6O6IzTDDYytsCFYXKMlL5Umik7pIC6VtBDPfGscg3WFaJrjlq03OpsGifn+kBYjHlKmV7GBoT3bDebZFEVMF4u17abhVfpi9DzeSyUWg/MYCedqFd1Tnat62eBeD2Q0cAAAACAtAAAACABMahynT7/a8Gy+xXrlFjoaCceMP0CQQH1Q8EqGdMuFsOxkOwDxgskLDnRzwQPGhFEf2gDDPMzj/MeeRoOYBKS3LKDFNS/sFTLSimcxAk1lxThMqbc7Xm+6bn+yHsIVceJsNExBwB87bsYW94SpU5ah3dmDiOPyUJtfJdDo84h1YAAACAGL8A/i8OwMj3OivNUbezdDjoEes2hOM24n2spUXN5f2vne6Z7OeZshk6O1kywyJqQHBoCmV4KxnjlmYYY6CTPbeDSl8B9v4SDeu/kywWPtugBR8d4EZI5QdaFH/iGAHn/509ULDpMUVkj0ALeo/RM6n+dA3pMghQ8s9MrUs8LP0=
+      - THRESH_SIG_GROUP_KEY=AAAABQAAAAYAAAADAQABAAAAgFNLZUYiH+FImV5iKJQmtNXpn9VkBq7gMBrwoDeYZfb1+juiM0ww2MrbAhWFyjJS+VJopO6SAulbQQz3xrHIN1hWia45atNzqbBon5/pAWIx5SplexgaE92w3m2RRFTBeLte2m4VX6YvQ83kslFoPzGAnnahXdU52retngXg9kNH
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/blockchain-f.com/peers/peer0.blockchain-f.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/blockchain-f.com/peers/peer0.blockchain-f.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.blockchain-f.com:/var/hyperledger/production
+    ports:
+      - 12051:7051
+      - 12053:7053
