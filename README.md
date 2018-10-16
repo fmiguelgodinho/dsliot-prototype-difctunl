@@ -16,11 +16,14 @@ The following Figure illustrates the architecture of the prototype:
   <img src="img/proto-arch.png" width="600" title="Prototype Architecture Overview">
 </p>
 
-As can be seen, the prototype is modeled in a tiered architecture composed by three different layers. These represent different software services and components:
-* On the lower level, are the blockchain-enabled services, leveraged by an extended version of the Hyperledger Fabric platform, where the support for threshold and group multi-signatures, integrated with extended consensus plane services for Byzantine fault-tolerant properties are a relevant touchstone;
+The prototype is modeled in a tiered architecture composed by three different layers. These represent different software services and components:
+* On the lower level, are the blockchain-enabled services, leveraged by an _extended_ version of the Hyperledger Fabric platform, where the support for interchangeable threshold and group multi-signatures was added, integrated with extended consensus plane services for the support of Byzantine fault-tolerant properties;
 * On the center, is the materialization of the concept of smart hubs, responsible for the intermediation of interactions from user devices and IoT devices (regarded as clients of the provided services in the blockchain-enabled architecture), and forwarding those operations as transactions with data-management functions enabled by the backed blockchain services;
-* On the upper and final level, we have the actual clients of the service that could be found in regular IoT environments (_things_ or IoT devices and end users).
+* On the upper and final level, we have the actual clients of the service that could be found in regular IoT environments (_things_ or IoT devices, and end users).
 
+In terms of technologies and communication protocols, the bottom layer inherits from Hyperledger Fabric the gRPC protocol for communication between blockchain nodes and the Golang codebase. The smart hub layer was implemented in Java, using a slightly modified version of the Hyperledger Fabric SDK and harnessing CoAP and HTTP protocols for communication with client entities (using the CoAP library by https://github.com/ARMmbed/java-coap and the lightweight Java Spark framework which comes with an integrated Jetty HTTP server http://sparkjava.com/). Further, this layer uses MongoDB for caching data. For the final layer, we provide a test Java CoAP client implementation and an Android client.
+
+## Requirements
 
 ## Instructions
 
