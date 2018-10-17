@@ -237,7 +237,30 @@ Confirm.
 
 #### 3b. Using the CoAP test client
 
+The CoAP client is fairly straightforward to use. However, as it was originally built to generate payload and benchmark the smart hub CoAP protocol you have to compile it from source to test it out. The process is quite simple.
 
+1. Clone the repo https://github.com/fmiguelgodinho/smarthub-coap-http-client.
+
+2. Open the file `src/SHClient.java` and find the following constants:
+```
+public static final String PROTOCOL = "http"; // 'coap' or 'http'
+public static final int NUMBER_OF_OPS = 10;
+public static final double PERCENTAGE_OF_READ_OPS = 0.6; // 0 <= p <= 1
+public static final int NUMBER_OF_CLIENTS = 1;
+
+public static final String SH_DOMAIN = "localhost";
+public static final int SH_COAP_PORT = 5683;
+public static final int SH_HTTP_PORT = 8080;
+```
+Despite being able to issue HTTP requests, let's just consider this client for CoAP requests. First, ensure that `PROTOCOL` is set up to use `coap`. Afterwards, you can edit the number of operations to execute and the number of client threads to spawn. You can also define which percentage of these operations will be read operations (queries) instead of write operations (invocations).
+
+The lower three constants have to be changed to reflect the network address of the smart hub and its ports. Leave the CoAP port as it is if nothing was changed on the configuration of the smart hub instance and simply define the host address, which is represented here by localhost.
+
+3. Finally, build the `SHClient.java` client using `javac` and run it on a terminal:
+```
+java SHClient
+```
+The console shall output the CoAP requests and responses received from the hub.
 
 ## Open issues
 
