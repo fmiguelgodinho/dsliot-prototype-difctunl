@@ -95,13 +95,42 @@ api.ssl.truststorePw = sparkmeup
 api.ssl.muthualAuth = true
 ```
 
+The `crypto.threshsig.groupKey` parameter which follows next on the file is the public key for when threshold signature schemes are used for endorsing blockchain transactions, and the following section configures a database connection to a local MongoDB instance.
 
-4. Run the command below to start a local MongoDB instance. You might need to run it with administrator privileges.
+```
+mongo.address = mongodb://localhost:27017
+mongo.database = beckie
+mongo.contractCollection = contracts
+```
+
+Finally, the last section, seen below, is related with the integration between the smart hub and the blockchain services via the Hyperledger Fabric SDK. Again, we recommend leaving this as is.
+
+```
+hlf.channelName = mainchannel
+
+hlf.chaincode.callInterval = 500
+hlf.communication.negotiationMode = TLS
+hlf.communication.sslProvider = openSSL
+hlf.transaction.timeout = 400000
+hlf.proposal.timeout = 400000
+
+hlf.client.username = User1@blockchain-a.com
+hlf.client.mspid = PeersAMSP
+hlf.client.org = PeersA
+hlf.client.crtPath = crypto/hlf/user/User1@blockchain-a.com-cert.pem
+hlf.client.keyPath = crypto/hlf/user/User1@blockchain-a.com-priv.pem
+
+hlf.trustedCasPath = crypto/hlf/peer-ca
+```
+
+4.
+
+5. Run the command below to start a local MongoDB instance. You might need to run it with administrator privileges.
 ```
 mongod
 ```
 
-5. Open a separate terminal and run the command below. If running the smart hub on a privileged port (e.g. TCP 80), you might need to run the command with administrator privileges.
+6. Open a separate terminal and run the command below. If running the smart hub on a privileged port (e.g. TCP 80), you might need to run the command with administrator privileges.
 ```
 java -jar dsl-api-1.0.1-jar-with-dependencies.jar
 ```
