@@ -44,6 +44,9 @@ This first set of steps will start a bootstrap Docker virtual network for the bl
 5. To inspect the network you have just launched use `docker ps`. All 20 peer nodes and 4 orderer nodes should be up and running, together with their respective chaincode containers, CouchDB instances and consensus cluster nodes (either Kafka or BFT-SMaRt).
 
 
+The network will default to a lenient threshold signature endorsement policy which allows all nodes 
+
+
 ## Source-code
 
 #### Open issues
