@@ -25,6 +25,21 @@ In terms of technologies and communication protocols, the bottom layer inherits 
 
 ## Pre-requisites
 
+It is recommended the prototype is tested on Linux environments, as no tests were done for Windows/MacOS systems and its behaviour and dependencies may be unpredictable on said platforms.
+
+What you'll need to install:
+
+* For the blockchain network layer
+  * Java 9
+  * Golang 1.10
+  * Docker version >= 17
+  * Docker Compose version >= 17
+  * Java Unix Domain Sockets (https://github.com/mcfunley/juds) and all underlying dependencies
+  
+* For the smart hub layer
+  * Java 9
+  * MongoDB version >= 2.4
+
 ## Instructions
 
 The prototype's software artifacts can be found in the `demo` folder.
