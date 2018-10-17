@@ -47,7 +47,7 @@ This first set of steps will start a bootstrap Docker virtual network for the bl
 The network will default to a lenient threshold signature endorsement policy which allows all nodes to sign a given transaction. This can be changed by modifying the `CHAINCODE_ENDORSEMENT_POLICY` and `ENDORSEMENT_SIGNATURE_SCHEME` environment variables in the beggining of the `start.sh` script. The first flag is the standard endorsement Hyperledger Fabric policy configuration, while the second is what allows the blockchain to decide whether to use threshold signatures or multi-signatures to sign and verify transactions. These flags will be used to initiate the test chaincode named `xcc` provided in `chaincode\xcc`. It's important to note that these configurations are related with chaincode configuration and not with the network itself, which could be running different and multiple chaincodes.
 
 
-#### 2. Booting up a Smart Hub
+#### 2a. Booting up a Smart Hub
 
 1. Go back to the `demo` folder and then into `smart-hub\conf`. Open the file `config.properties`, which holds all configurations for running the smart hub instance.
 
@@ -193,18 +193,33 @@ To invoke operations add `invoke` to the URL:  `https://<host>:<port>/api/mainch
 
 Then, select an operation to execute, any needed invocation payload and submit the invocation to see its confirmation and the endorsements for the transaction you just triggered.
 
+#### 2b. Booting the Smart Hub in a Raspberry Pi.
+
 #### 3a. Using an Android client
+
+1. Go back to the root `demo` folder and copy the APK file in `android-app/dsl-smarthub-client-app.apk` to your Android device. Ensure that in the security settings of the device the option for allowing the installation of applications from unknown sources is enabled. Then, install the app. An icon with the acronym DSL should appear.
+
+2. Open the app and you'll be presented with three tabs. The first one is the configuration tab which you need to define the network address and port of the smart hub (at this moment, both the blockchain network and the smart hub have to be up and running). You'll also have to define the communication channel and contract to be used, which should default to `mainchannel` and `xcc`, respectively.
 
 <p align="center">
   <img src="android1.png" width="220">
 </p>
+
+Confirm.
+
+3. The application shall load the contract's data and present it to the user. Upon reading its properties, you can navigate to the bottom of the tab and press sign, which will make you sign the contract as an end-user of the service (the signing material is stored within the app).
+
 <p align="center">
   <img src="android2.png" width="220">
   <img src="android3.png" width="220">
 </p>
+
+4. Now, we can either query or invoke the contract in the third and final tab. To do so, just input the operation to be called and any needed parameters and submit the operation to see the results and transaction endorsements from blockchain nodes.
+
 <p align="center">
   <img src="android4.png" width="220">
   <img src="android5.png" width="220">
+</p>
 
 #### 3b. Using the CoAP test client
 
