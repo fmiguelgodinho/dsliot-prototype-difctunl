@@ -29,17 +29,26 @@ In terms of technologies and communication protocols, the bottom layer inherits 
 
 The prototype's software artifacts can be found in the `demo` folder.
 
+#### 1. Starting a Blockchain Services network
 
-### 1. Starting a Blockchain Services network
-
-This first set of steps will start a bootstrap Docker virtual network for the blockchain services layer of the prototype. As it requires the usage of multiple Docker containers simultaneously for emulating blockchain nodes and their inner services and components, it is recommended that this is executed on a high-end machine. It can also be done in a distributed setting upon configuration of the Docker Compose YAML files. However, the configurations we provide are generically set up for a virtual distributed environment within a single physical machine.
+This first set of steps will start a bootstrap Docker virtual network for the blockchain services layer of the prototype. This will start a blockchain network with a size of 20 peer nodes and 4 orderer nodes, that can have BFT consensus guarantees or not, and can use threshold signature or multi-signature schemes for transaction endorsement flows within the blockchain, depending on the user-defined configuration. As it requires the usage of multiple Docker containers simultaneously for emulating blockchain nodes and their inner services and components, it is recommended that this is executed on a high-end machine. It can also be done in a distributed setting upon configuration of the Docker Compose YAML files. However, the configurations we provide are generically set up for a virtual distributed environment within a single physical machine.
 
 1. Go into the blockchain services network folder: `cd demo/blockchain-network`. Within this folder you will find a few YAML files, some subfolders and a set of bash scripts: `generate.sh`, `start.sh`, `stop.sh`, `kill.sh`. These scripts are responsible for generating the genesis block and any needed cryptographic material for node communication, membership and identification, for starting an instance of the blockchain network and all underlying services and nodes, for stopping the network temporarily, and for _killing_ the network as whole by clearing all its resources. 
-2. 
+
+2. Create two empty folders named `crypto-config` and `channel-artifacts`. These will hold cryptographic material for blockchain nodes and membership policies and the genesis block and any Hyperledger Fabric channel configurations. 
+
+3. Run the `generate.sh` script in a terminal, which will ask you if you want to run a Kafka-based network (not BFT) or a BFT version. The folders in the previous step should now be populated.
+
+4. Run the `start.sh` script, which will ask you again if you want to run a Kafka-based network or the BFT version (the same choice as in step 4 has to be taken, otherwise the startup process will fail). Note that this may take a while as the Docker network will have to be set up and all Hyperledger Fabric actions to initiate a communication channel between peers will be done automatically. As we use our extended version of Fabric, on a first run, this process will also download any needed custom-built Docker images. The output of the script is very verbose and will alert the user upon completion. Please note that errors may occur if the machine does not have enough resources to load all Docker containers.
+
+5. To inspect the network you have just launched use `docker ps`. All 20 peer nodes and 4 orderer nodes should be up and running, together with their respective chaincode containers, CouchDB instances and consensus cluster nodes (either Kafka or BFT-SMaRt).
 
 
 ## Source-code
 
+#### Open issues
+
+At the moment we have no utility for generating threshold signature keys.
 
 ## Contact us
 
