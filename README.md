@@ -39,6 +39,9 @@ What you'll need to install:
 * For the smart hub layer
   * Java 9
   * MongoDB version >= 2.4
+  
+* For the CoAP test client
+  * You may need to install Maven and the ARMmbed Java CoAP library (https://github.com/ARMmbed/java-coap)
 
 ## Instructions
 
