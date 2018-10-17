@@ -49,9 +49,22 @@ The network will default to a lenient threshold signature endorsement policy whi
 
 ## Source-code
 
+The source-code for all components of this prototype can be found in the following repositories:
+
+* Blockchain Services
+  * Modified version of the Hyperledger Fabric: https://github.com/fmiguelgodinho/fabric
+  * XSPP component of our prototype, responsible for threshold signature transaction endorsement: https://github.com/fmiguelgodinho/extended-signing-policies-provider
+* Smart Hub
+  * API implementation: https://github.com/fmiguelgodinho/smarthub-api
+  * Modified version of the Hyperledger Fabric Java SDK: https://github.com/fmiguelgodinho/fabric-sdk-java
+* Client Implementations
+  * Android app: https://github.com/fmiguelgodinho/decentralized-ledgering-app
+  * Bare-bones CoAP test client: https://github.com/fmiguelgodinho/smarthub-coap-http-client
+
+
 #### Open issues
 
-At the moment we have no utility for generating threshold signature keys.
+* At the moment we have no utility for generating threshold signature keys. Thus, the prototype only allows using the RSA threshold signatures with a modulus size of 2048 bits set in the configuration files.
 
 ## Contact us
 
