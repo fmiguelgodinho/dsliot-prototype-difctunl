@@ -193,7 +193,21 @@ To invoke operations add `invoke` to the URL:  `https://<host>:<port>/api/mainch
 
 Then, select an operation to execute, any needed invocation payload and submit the invocation to see its confirmation and the endorsements for the transaction you just triggered.
 
-#### 2b. Booting the Smart Hub in a Raspberry Pi.
+#### 2b. Booting the Smart Hub on a Raspberry Pi
+
+You can execute the exact same steps for running the smart hub on a Raspberry Pi. We recommend using the 3B+ model.
+However, our implementation uses pre-compiled Netty binaries, which are not readily available for the Pi. If an error appears in step 7 related with the libnetty_tcnative library, you may have to compile netty-tcnative (https://github.com/netty/netty-tcnative) from source and install its dependencies beforehand like so:
+```
+sudo apt-get update
+sudo apt-get install ninja-build cmake perl golang libssl-dev libapr1-dev autoconf automake libtool maven
+```
+	
+To compile netty-tcnative, checkout version `2.0.9.Final`, change architecture to 32 bits in `pom.xml`, and finally run:
+```
+mvn install -DskipTests
+```
+
+You then have to copy the resulting library (either `libnetty_tcnative.so` or `libnetty_tcnative_arm_32.so`) to the `META-INF\native\` directory within the `dsl-api-1.0.1-jar-with-dependencies.jar` archive.
 
 #### 3a. Using an Android client
 
@@ -223,6 +237,8 @@ Confirm.
 
 #### 3b. Using the CoAP test client
 
+
+
 ## Open issues
 
 * At the moment we have no utility for generating threshold signature keys. Thus, the prototype only allows using the RSA threshold signatures with a modulus size of 2048 bits set in the configuration files.
@@ -235,7 +251,7 @@ The source-code for all components of this prototype can be found in the followi
   * Modified version of the Hyperledger Fabric: https://github.com/fmiguelgodinho/fabric
   * XSPP component of our prototype, responsible for threshold signature transaction endorsement: https://github.com/fmiguelgodinho/extended-signing-policies-provider
 * Smart Hub
-  * API implementation: https://github.com/fmiguelgodinho/smarthub-api
+  * Smart Hub core implementation: https://github.com/fmiguelgodinho/smarthub-api
   * Modified version of the Hyperledger Fabric Java SDK: https://github.com/fmiguelgodinho/fabric-sdk-java
 * Client Implementations
   * Android app: https://github.com/fmiguelgodinho/decentralized-ledgering-app
