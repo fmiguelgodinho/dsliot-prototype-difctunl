@@ -27,6 +27,16 @@ In terms of technologies and communication protocols, the bottom layer inherits 
 
 ## Instructions
 
+The prototype's software artifacts can be found in the `demo` folder.
+
+
+### 1. Starting a Blockchain Services network
+
+This first set of steps will start a bootstrap Docker virtual network for the blockchain services layer of the prototype. As it requires the usage of multiple Docker containers simultaneously for emulating blockchain nodes and their inner services and components, it is recommended that this is executed on a high-end machine. It can also be done in a distributed setting upon configuration of the Docker Compose YAML files. However, the configurations we provide are generically set up for a virtual distributed environment within a single physical machine.
+
+1. Go into the blockchain services network folder: `cd demo/blockchain-network`. Within this folder you will find a few YAML files, some subfolders and a set of bash scripts: `generate.sh`, `start.sh`, `stop.sh`, `kill.sh`. These scripts are responsible for generating the genesis block and any needed cryptographic material for node communication, membership and identification, for starting an instance of the blockchain network and all underlying services and nodes, for stopping the network temporarily, and for _killing_ the network as whole by clearing all its resources. 
+2. 
+
 
 ## Source-code
 
