@@ -237,7 +237,7 @@ Confirm.
 
 #### 3b. Using the CoAP test client
 
-The CoAP client is fairly straightforward to use. However, as it was originally built to generate payload and benchmark the smart hub CoAP protocol you have to compile it from source to test it out. The process is quite simple.
+The CoAP client is fairly straightforward to use and its intent is to act as an emulator for what would be an IoT device communicating with the hub. However, as it was originally built to generate payload and benchmark the smart hub CoAP protocol you have to compile it from source to test it out. The process is quite simple.
 
 1. Clone the repo https://github.com/fmiguelgodinho/smarthub-coap-http-client.
 
