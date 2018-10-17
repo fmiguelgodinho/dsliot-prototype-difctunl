@@ -123,14 +123,16 @@ hlf.client.keyPath = crypto/hlf/user/User1@blockchain-a.com-priv.pem
 hlf.trustedCasPath = crypto/hlf/peer-ca
 ```
 
-4.
+4. Go back to the `smart-hub` folder and then into `crypto`. This directory holds all needed cryptographic material to run the smart hub: the `tls` subfolder holds certificates for HTTPS communication and the `hlf` holds membership certificates and keys needed for the integration with Fabric. Now, go into the `hlf` folder, where you'll find another two folders: `peer-ca` and `user`. These hold the trusted certificate authorities for the smart hub and the user which the smart hub uses to authenticate with the blockchain, respectively.
 
-5. Run the command below to start a local MongoDB instance. You might need to run it with administrator privileges.
+5. 
+
+6. Run the command below to start a local MongoDB instance. You might need to run it with administrator privileges.
 ```
 mongod
 ```
 
-6. Open a separate terminal and run the command below. If running the smart hub on a privileged port (e.g. TCP 80), you might need to run the command with administrator privileges.
+7. Open a separate terminal and run the command below. If running the smart hub on a privileged port (e.g. TCP 80), you might need to run the command with administrator privileges.
 ```
 java -jar dsl-api-1.0.1-jar-with-dependencies.jar
 ```
