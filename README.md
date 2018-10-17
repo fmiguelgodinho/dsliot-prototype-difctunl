@@ -49,8 +49,59 @@ The network will default to a lenient threshold signature endorsement policy whi
 
 #### 2. Booting up a Smart Hub
 
+1. Go back to the `demo` folder and then into `smart-hub\conf`. Open the file `config.properties`, which holds all configurations for running the smart hub instance.
 
-2. Run the command below. If running the smart hub on a privileged port (e.g. TCP 80), you might need to run the command with administrator privileges.
+2. Change any needed configurations in the file. Start by going to the bottom of the file and identify the following sections:
+
+```
+hlf.bootstrapNodes = peer0
+hlf.bootstrapNodes = peer1
+hlf.bootstrapNodes = peer2
+hlf.bootstrapNodes = peer3
+hlf.bootstrapNodes = peer4
+hlf.bootstrapNodes = peer5
+hlf.bootstrapNodes = peer6
+hlf.bootstrapNodes = orderer0
+hlf.bootstrapNodes = orderer1
+```
+
+This section represents all known bootstrap nodes for the smart hub. We recommend leaving this as is and editing the following sections, which represent a boostrap node connection:
+
+```
+bootstrapNode.peer0.type = 0 
+bootstrapNode.peer0.name = peer0.blockchain-a.com
+bootstrapNode.peer0.host = 51.255.64.183
+bootstrapNode.peer0.port = 7051
+bootstrapNode.peer0.eventHubPort = 7053
+```
+
+The first parameter represents the type of the node (0 for a peer node and 1 for an orderer node), the second is the name given to the node, while the following parameters represent where the node is hosted and on which port is it listening. The event hub port is only applicable to peer nodes and not to orderers. Here, change the parameter `bootstrapNode.peerX.host`, where _X_ is the number of the node, to the host machine address of the blockchain network configured in the previous set of steps.
+
+You can explore the other configuration parameters if you wish, but we recommend leaving it as is.
+
+3. (_Optional_) Go to the top of file where you can find the properties below. These can be changed to configure different CoAP and HTTP communication ports and thread pool sizes, as well as HTTPS properties.
+
+```
+api.rest.port = 8080
+api.rest.threadPool.max = 12
+api.rest.threadPool.min = 2
+api.rest.threadPool.timeout = 40000
+api.coap.port = 5683
+api.coap.threadPool = 12
+api.ssl.keystorePath = crypto/tls/server.keystore
+api.ssl.keystorePw = sparkmeup
+api.ssl.truststorePath = crypto/tls/server.truststore
+api.ssl.truststorePw = sparkmeup
+api.ssl.muthualAuth = true
+```
+
+
+4. Run the command below to start a local MongoDB instance. You might need to run it with administrator privileges.
+```
+mongod
+```
+
+5. Open a separate terminal and run the command below. If running the smart hub on a privileged port (e.g. TCP 80), you might need to run the command with administrator privileges.
 ```
 java -jar dsl-api-1.0.1-jar-with-dependencies.jar
 ```
