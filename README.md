@@ -167,7 +167,7 @@ Replace `<host>` with `localhost` if running the hub locally.
 The page that pops up should look like this:
 
 <p align="center">
-  <img src="browser1.png" width="600">
+  <img src="browser1.PNG" width="600">
 </p>
 
 8. (Optional) You can now invoke operations over the contract and query its contained data. Possible operations to execute are listed in the contracts properties in the page shown in step 7.
@@ -175,7 +175,7 @@ The page that pops up should look like this:
 To query a contract add `query` to the URL: `https://<host>:<port>/api/mainchannel/contract/xcc/query`. The following page should appear:
 
 <p align="center">
-  <img src="browser2.png" width="600">
+  <img src="browser2.PNG" width="600">
 </p>
 
 Then, select an operation to execute, any needed query parameters and submit the query to see the results.
@@ -183,7 +183,7 @@ Then, select an operation to execute, any needed query parameters and submit the
 To invoke operations add `invoke` to the URL:  `https://<host>:<port>/api/mainchannel/contract/xcc/invoke`. The following page should appear:
 
 <p align="center">
-  <img src="browser3.png" width="600">
+  <img src="browser3.PNG" width="600">
 </p>
 
 Then, select an operation to execute, any needed invocation payload and submit the invocation to see its confirmation and the endorsements for the transaction you just triggered.
