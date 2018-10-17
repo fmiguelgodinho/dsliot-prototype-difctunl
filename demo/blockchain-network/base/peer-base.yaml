@@ -15,7 +15,7 @@ services:
       # https://docs.docker.com/compose/networking/
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_hlf
       #- CORE_LOGGING_LEVEL=ERROR
-      - CORE_LOGGING_LEVEL=debug
+      - CORE_LOGGING_LEVEL=error
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_GOSSIP_USELEADERELECTION=true
       - CORE_PEER_GOSSIP_ORGLEADER=false
@@ -23,5 +23,10 @@ services:
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      - XSP_THREAD_POOL_SIZE=100
+      - XSP_DIGEST_INVERVAL_MILLIS=1000
+      - XSP_MTU=8096
+      - PEER_SIGN_THRESHOLD_MTU=8096
+      - CHAINCODE_INVOKE_TIMEOUT_MILLIS=100000ms
     working_dir: /
     command: ./startPeer.sh
