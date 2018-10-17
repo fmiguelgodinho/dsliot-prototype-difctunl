@@ -125,7 +125,25 @@ hlf.trustedCasPath = crypto/hlf/peer-ca
 
 4. Go back to the `smart-hub` folder and then into `crypto`. This directory holds all needed cryptographic material to run the smart hub: the `tls` subfolder holds certificates for HTTPS communication and the `hlf` holds membership certificates and keys needed for the integration with Fabric. Now, go into the `hlf` folder, where you'll find another two folders: `peer-ca` and `user`. These hold the trusted certificate authorities for the smart hub and the user which the smart hub uses to authenticate with the blockchain, respectively.
 
-5. 
+5. You now have to ensure the certificates in the `peer-ca` folder are up-to-date with the certificates you generated for the blockchain network in the previous network. To do so, remotely copy (e.g. using `scp`) the `crypto-config` directory contents in the following manner, where _X_ is a letter between _a_ and _t_. Repeat for all nodes.
+
+```
+scp <user>@<remote-address>:<port>:<blockchain-network-file-directory>/crypto-config/peerOrganizations/blockchain-X.com/tlsca/tlsca.blockchain-X.com-cert.pem ./peer-ca/tlsca.blockchain-X.com-cert.pem
+```
+
+Repeat the process for orderer nodes (which is a single certificate):
+
+```
+scp <user>@<remote-address>:<port>:<blockchain-network-file-directory>/crypto-config/ordererOrganizations/consensus.com/tlsca/tlsca.consensus.com-cert.pem ./peer-ca/tlsca.consensus.com-cert.pem
+```
+
+Lastly, we need to update the membership certificate and key used to authenticate with peer nodes. Let's use the first organization, labeled with an 'a'.
+
+```
+scp <user>@<remote-address>:<port>:<blockchain-network-file-directory>/crypto-config/peerOrganizations/blockchain-a.com/users/User1@blockchain-a.com/msp/signcerts/User1@blockchain-a.com-cert.pem ./user/User1@blockchain-a.com-cert.pem
+
+scp <user>@<remote-address>:<port>:<blockchain-network-file-directory>/crypto-config/peerOrganizations/blockchain-a.com/users/User1@blockchain-a.com/msp/keystore/User1@blockchain-a.com-priv.pem ./user/User1@blockchain-a.com-priv.pem
+```
 
 6. Run the command below to start a local MongoDB instance. You might need to run it with administrator privileges.
 ```
@@ -137,6 +155,14 @@ mongod
 java -jar dsl-api-1.0.1-jar-with-dependencies.jar
 ```
 
+The smart hub will output a few lines and to test the process ran correctly you can open up a web browser on the following URL:
+
+```
+https://<host>:<port>/api/mainchannel/contract/xcc
+```
+
+The `<host>` and `<port>` parameters are the ones defined in the `config.properties` file referred in step 2. 
+Replace `<host>` with `localhost` if running the hub locally.
 
 ## Open issues
 
