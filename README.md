@@ -145,7 +145,7 @@ scp <user>@<remote-address>:<port>:<blockchain-network-file-directory>/crypto-co
 scp <user>@<remote-address>:<port>:<blockchain-network-file-directory>/crypto-config/peerOrganizations/blockchain-a.com/users/User1@blockchain-a.com/msp/keystore/User1@blockchain-a.com-priv.pem ./user/User1@blockchain-a.com-priv.pem
 ```
 
-6. Run the command below to start a local MongoDB instance. You might need to run it with administrator privileges.
+6. Go back to the `smart-hub` root folder and run the command below to start a local MongoDB instance. You might need to run it with administrator privileges.
 ```
 mongod
 ```
@@ -160,17 +160,22 @@ The smart hub will output a few lines and to test the process ran correctly you 
 ```
 https://<host>:<port>/api/mainchannel/contract/xcc
 ```
-
 The `<host>` and `<port>` parameters are the ones defined in the `config.properties` file referred in step 2. 
 Replace `<host>` with `localhost` if running the hub locally.
 
-The page that pops up should look like this:
+The browser will request a client-side certificated, which you can load from `util/client.crt`. Afterwards, the page that pops up should look like this:
 
 <p align="center">
   <img src="browser1.PNG" width="600">
 </p>
 
-8. (Optional) You can now invoke operations over the contract and query its contained data. Possible operations to execute are listed in the contracts properties in the page shown in step 7.
+8. (_Optional_) You can now invoke operations over the contract and query its contained data. Possible operations to execute are listed in the contracts properties in the page shown in step 7. However, to do this, as on the browser you're representing the user of the service, you must first sign the contract, a step which is shown in the previous page and requires you to sign the contract's hash (which is displayed in the JSON contract output on the picture) using the key in `util/client.key.pkcs8`. As this might be a little tedious, we suggest to go straight for the Android client test runs, which automate these contract signing tasks entirely.
+
+Even so, if you wish to proceed, use the signing utility we provide in `util` as:
+``` 
+java util/SigningUtil util/client.key.pkcs8 <input-text-file-containing-contract-hash> <output-text-file-containing-signature>
+```
+The contract has to be in PKCS8 format. The result will be the signature which has to be copied and pasted into the form listed on the page and submitted. If everything checks out, the result will be a green message stating that the contract is signed. Now, we can query the contract and invoke it.
 
 To query a contract add `query` to the URL: `https://<host>:<port>/api/mainchannel/contract/xcc/query`. The following page should appear:
 
@@ -187,6 +192,21 @@ To invoke operations add `invoke` to the URL:  `https://<host>:<port>/api/mainch
 </p>
 
 Then, select an operation to execute, any needed invocation payload and submit the invocation to see its confirmation and the endorsements for the transaction you just triggered.
+
+#### 3a. Using an Android client
+
+<p align="center">
+  <img src="android1.png" width="220">
+</p>
+<p align="center">
+  <img src="android2.png" width="220">
+  <img src="android3.png" width="220">
+</p>
+<p align="center">
+  <img src="android4.png" width="220">
+  <img src="android5.png" width="220">
+
+#### 3b. Using the CoAP test client
 
 ## Open issues
 
