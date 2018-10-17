@@ -44,8 +44,11 @@ This first set of steps will start a bootstrap Docker virtual network for the bl
 5. To inspect the network you have just launched use `docker ps`. All 20 peer nodes and 4 orderer nodes should be up and running, together with their respective chaincode containers, CouchDB instances and consensus cluster nodes (either Kafka or BFT-SMaRt).
 
 
-The network will default to a lenient threshold signature endorsement policy which allows all nodes 
+The network will default to a lenient threshold signature endorsement policy which allows all nodes to sign a given transaction. This can be changed by modifying the `CHAINCODE_ENDORSEMENT_POLICY` and `ENDORSEMENT_SIGNATURE_SCHEME` environment variables in the beggining of the `start.sh` script. The first flag is the standard endorsement Hyperledger Fabric policy configuration, while the second is what allows the blockchain to decide whether to use threshold signatures or multi-signatures to sign and verify transactions. These flags will be used to initiate the test chaincode named `xcc` provided in `chaincode\xcc`. It's important to note that these configurations are related with chaincode configuration and not with the network itself, which could be running different and multiple chaincodes.
 
+## Open issues
+
+* At the moment we have no utility for generating threshold signature keys. Thus, the prototype only allows using the RSA threshold signatures with a modulus size of 2048 bits set in the configuration files.
 
 ## Source-code
 
@@ -60,11 +63,6 @@ The source-code for all components of this prototype can be found in the followi
 * Client Implementations
   * Android app: https://github.com/fmiguelgodinho/decentralized-ledgering-app
   * Bare-bones CoAP test client: https://github.com/fmiguelgodinho/smarthub-coap-http-client
-
-
-#### Open issues
-
-* At the moment we have no utility for generating threshold signature keys. Thus, the prototype only allows using the RSA threshold signatures with a modulus size of 2048 bits set in the configuration files.
 
 ## Contact us
 
