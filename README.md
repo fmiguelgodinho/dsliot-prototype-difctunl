@@ -50,6 +50,11 @@ The network will default to a lenient threshold signature endorsement policy whi
 #### 2. Booting up a Smart Hub
 
 
+2. Run the command below. If running the smart hub on a privileged port (e.g. TCP 80), you might need to run the command with administrator privileges.
+```
+java -jar dsl-api-1.0.1-jar-with-dependencies.jar
+```
+
 
 ## Open issues
 
