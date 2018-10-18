@@ -284,7 +284,7 @@ The console shall output the CoAP requests and responses received from the hub.
 
 * At the moment we have no utility for generating threshold signature keys. Thus, the prototype only allows using the RSA threshold signatures with a modulus size of 2048 bits set in the configuration files.
 
-* The Smart Hub only leverages UDP-based CoAP without any security protocol involved. The underlying library only supports CoAP to be secured via TLS in its TCP protocol version. For the standard UDP, the library does not support DTLS as of yet.
+* The Smart Hub only leverages UDP-based CoAP without any security protocol involved. The underlying ARMmbed library only supports CoAP to be secured via TLS in its TCP protocol version. For the standard UDP, the library does not support DTLS as of yet.
 
 ## Source-code
 
