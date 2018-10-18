@@ -41,8 +41,8 @@ What you'll need to install:
   * MongoDB version >= 2.4
   
 * For the CoAP test client
-  * You may need to install Maven and the ARMmbed Java CoAP library (https://github.com/ARMmbed/java-coap)
-
+  * You may need to install Maven version >= 3.5.3
+  
 ## Instructions
 
 The prototype's software artifacts can be found in the `demo` folder.
@@ -283,6 +283,8 @@ The console shall output the CoAP requests and responses received from the hub.
 ## Open issues
 
 * At the moment we have no utility for generating threshold signature keys. Thus, the prototype only allows using the RSA threshold signatures with a modulus size of 2048 bits set in the configuration files.
+
+* The Smart Hub only leverages UDP-based CoAP without any security protocol involved. The underlying library only supports CoAP to be secured via TLS in its TCP protocol version. For the standard UDP, the library does not support DTLS as of yet.
 
 ## Source-code
 
