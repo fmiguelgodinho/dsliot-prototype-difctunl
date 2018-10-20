@@ -1,4 +1,4 @@
-# Prototype for a Decentralized and Scalable Ledgering system for the Internet-of-Things (IoT)
+# Decentralized and Scalable Ledgering platform for the Internet-of-Things (IoT)
 
 This repository hosts the prototype demonstration for a system built for an MSc. Thesis, whose purpose is to provide a decentralized and scalable middleware for IoT environments using blockchain technology.
 
