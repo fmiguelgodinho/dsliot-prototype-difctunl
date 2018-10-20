@@ -291,14 +291,21 @@ The console shall output the CoAP requests and responses received from the hub.
 The source-code for all components of this prototype can be found in the following repositories:
 
 * Blockchain Services
-  * Modified version of the Hyperledger Fabric: https://github.com/fmiguelgodinho/fabric
+  * Modified version of the Hyperledger Fabric based on the work of : https://github.com/fmiguelgodinho/fabric
   * XSPP component of our prototype, responsible for threshold signature transaction endorsement: https://github.com/fmiguelgodinho/extended-signing-policies-provider
+  * BFT-SMaRt ordering service for the Hyperledger Fabric: https://github.com/bft-smart/fabric-orderingservice
 * Smart Hub
   * Smart Hub core implementation: https://github.com/fmiguelgodinho/smarthub-api
   * Modified version of the Hyperledger Fabric Java SDK: https://github.com/fmiguelgodinho/fabric-sdk-java
 * Client Implementations
   * Android app: https://github.com/fmiguelgodinho/decentralized-ledgering-app
   * Bare-bones CoAP test client: https://github.com/fmiguelgodinho/smarthub-coap-http-client
+  
+## References
+
+1. F. Godinho. _Bringing Order into Things, Decentralized and Scalable Ledgering for the Internet-of-Things_, MSc Thesis. Universidade Nova de Lisboa, 2018.
+2. A. Bessani, J. Sousa, and M. Vukolic. _A Byzantine Fault-tolerant Ordering Service for the Hyperledger Fabric Blockchain Platform_. In: Proceedings of the 1st Workshop on Scalable and Resilient Infrastructures for Distributed Ledgers. SERIAL ’17. ACM, 2017, 6:1–6:2.
+3. Hyperledger Fabric. URL: https://github.com/hyperledger/fabric
 
 ## Contact us
 
