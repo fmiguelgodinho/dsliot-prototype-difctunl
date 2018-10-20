@@ -291,7 +291,7 @@ The console shall output the CoAP requests and responses received from the hub.
 The source-code for all components of this prototype can be found in the following repositories:
 
 * Blockchain Services
-  * Modified version of the Hyperledger Fabric [[3](#references)] based on the work of the authors of [[2](#references)]: https://github.com/fmiguelgodinho/fabric
+  * Modified version of the Hyperledger Fabric [[3](#references)] changed by us and including the work of the authors of [[2](#references)]: https://github.com/fmiguelgodinho/fabric
   * XSPP component of our prototype, responsible for threshold signature transaction endorsement: https://github.com/fmiguelgodinho/extended-signing-policies-provider
   * BFT-SMaRt ordering service for the Hyperledger Fabric built by the authors of [[2](#references)]: https://github.com/bft-smart/fabric-orderingservice
 * Smart Hub
