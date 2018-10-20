@@ -1,6 +1,6 @@
 # Decentralized and Scalable Ledgering platform for the Internet-of-Things (IoT)
 
-This repository hosts the prototype demonstration for a platform built for the MSc. Thesis in [1], whose purpose is to provide a decentralized and scalable middleware for IoT environments using blockchain technology.
+This repository hosts the prototype demonstration for a platform built for the MSc. Thesis in [[1](#references)], whose purpose is to provide a decentralized and scalable middleware for IoT environments using blockchain technology.
 
 ## Context
 
@@ -291,9 +291,9 @@ The console shall output the CoAP requests and responses received from the hub.
 The source-code for all components of this prototype can be found in the following repositories:
 
 * Blockchain Services
-  * Modified version of the Hyperledger Fabric [3] based on the work of the authors of [2]: https://github.com/fmiguelgodinho/fabric
+  * Modified version of the Hyperledger Fabric [[3](#references)] based on the work of the authors of [[2](#references)]: https://github.com/fmiguelgodinho/fabric
   * XSPP component of our prototype, responsible for threshold signature transaction endorsement: https://github.com/fmiguelgodinho/extended-signing-policies-provider
-  * BFT-SMaRt ordering service for the Hyperledger Fabric built by the authors of [2]: https://github.com/bft-smart/fabric-orderingservice
+  * BFT-SMaRt ordering service for the Hyperledger Fabric built by the authors of [[2](#references)]: https://github.com/bft-smart/fabric-orderingservice
 * Smart Hub
   * Smart Hub core implementation: https://github.com/fmiguelgodinho/smarthub-api
   * Modified version of the Hyperledger Fabric Java SDK: https://github.com/fmiguelgodinho/fabric-sdk-java
