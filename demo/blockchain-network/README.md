@@ -97,9 +97,9 @@ In this file you will find some base configurations for the BFT-SMaRt consensus 
   bft-replica:
     image: fgodinho/gassy-octopus
     environment:
-      - BFTSMART_ORDERER_MSPID=OrdererMSP,PeersAMSP,PeersBMSP,PeersCMSP,PeersDMSP,PeersEMSP,PeersFMSP,PeersGMSP,PeersHMSP,PeersIMSP, PeersJMSP,PeersKMSP,PeersLMSP,PeersMMSP,PeersNMSP,PeersOMSP,PeersPMSP,PeersQMSP,PeersRMSP,PeersSMSP,PeersTMSP
-      - BFTSMART_REPLICA_CERTIFICATE=/opt/gopath/src/github.com/hyperledger/fabric/hyperledger-bftsmart/config/sampleconfig/signcerts/peer.pem
-      - BFTSMART_REPLICA_PRIVKEY=/opt/gopath/src/github.com/hyperledger/fabric/hyperledger-bftsmart/config/sampleconfig/keystore/key.pem
+      - BFTSMART_ORDERER_MSPID=OrdererMSP,PeersAMSP,PeersBMSP...
+      - BFTSMART_REPLICA_CERTIFICATE=/opt/gopath/src/...
+      - BFTSMART_REPLICA_PRIVKEY=/opt/gopath/src/...
       - BFTSMART_PARELLELISM=10
       - BFTSMART_BLOCKS_PER_THREAD=10000
       - BFTSMART_RECEIVERS=1000,2000,3000,4000
