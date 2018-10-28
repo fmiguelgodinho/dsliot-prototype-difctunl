@@ -3,7 +3,7 @@
 
 This blockchain middleware is extended from the Hyperledger Fabric platform, version 1.1. Most of the Docker configurations that can be performed here are inherited from the original platform. Thus, this README shall mostly refer to configurations relevant to the extended services we added to Fabric. For help with Fabric's configurations, please [click here](https://hyperledger-fabric.readthedocs.io/en/release-1.1/).
 
-For configurations related with the BFT-SMaRt ordering service or with the BFT-SMaRt algorithm itself, please refer to the original authors documentation provided at https://github.com/bft-smart/fabric-orderingservice.
+For configurations related with the BFT-SMaRt ordering service or with the BFT-SMaRt algorithm itself, please refer to the original authors documentation provided at https://github.com/bft-smart/fabric-orderingservice and https://github.com/bft-smart/library.
 
 Additionally, please refer to the main README of this repository for instructions regarding startup or shutdown scripts.
 
