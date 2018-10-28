@@ -43,7 +43,7 @@ If you look into this file, you will find a service configuration named _peer-ba
     ...
 ```
 
-If you notice closely, we have ommitted configurations related to the original Hyperledger Fabric peer node configuration. You will also notice we are using a customly-built Docker image `fgodinho/peer` and startup script `startPeer.sh` for each peer node. The necessity for the latter is that the script has to start both the Golang peer node process and a Java process for the XSPP component simultaneously.
+If you notice closely, we have omitted configurations related to the original Hyperledger Fabric peer node configuration. You will also notice we are using a customly-built Docker image `fgodinho/peer` and startup script `startPeer.sh` for each peer node. The necessity for the latter is that the script has to start both the Golang peer node process and a Java process for the XSPP component simultaneously.
 
 In the `environment` section, you will find 5 custom environment variables:
 * `XSP_THREAD_POOL_SIZE`: The XSPP component communicates with each peer node's Golang process via UNIX domain sockets. This flag allows you to change the number of Java threads listening on the socket on the XSPP side;
@@ -55,4 +55,31 @@ Note: A proper balance of the previous 3 flags is required to ensure that the XS
 * `PEER_SIGN_THRESHOLD_MTU`: The maximum transmission unit for the socket on the peer node Golang process side;
 * `CHAINCODE_INVOKE_TIMEOUT_MILLIS`: The timeout value in milliseconds to wait for a chaincode invocation before failing the corresponding transaction.
 
-### _docker-compose.yaml_
+### _base/docker-compose-base.yaml_
+
+In this file, you will find configuration specific to each and every peer node to be launched for the blockchain network. Thus, find a peer node service, for instance, `peer0.blockchain-a.com`. You will find the following contents:
+
+```
+...
+  peer0.blockchain-a.com:
+    container_name: peer0.blockchain-a.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      ...
+      - THRESH_SIG_KEY_SHARE=dOhM/iilcwLTLg1CdYlSDvDhaIeX3xfH...
+      - THRESH_SIG_GROUP_KEY=AAAABwAAABQAAAADAQABAAADAQCdGXP2...
+      ...
+    ports:
+      - 7051:7051
+      - 7053:7053
+
+```
+
+Again, we have omitted some of the standard Fabric configuration. Here, there are essentially 2 flags that are of great importance:
+
+* `THRESH_SIG_KEY_SHARE`: The private key share material for signing transactions using threshold signatures;
+* `THRESH_SIG_GROUP_KEY`: The public group key material for verifying a threshold signature;
+
+These flags, which hold cryptographic material in Base64 format, reflect our decentralized group-oriented transaction signing and verification protocol and are fed into the XSPP whenever a transaction is required to be signed/verified. At the current moment, we do not provide a way to generate new key shares and group keys. Thereby, the prototype is limited to RSA threshold signatures with a key size of 2048 bits.
