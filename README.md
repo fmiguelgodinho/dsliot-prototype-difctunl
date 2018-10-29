@@ -64,7 +64,7 @@ This first set of steps will start a bootstrap Docker virtual network for the bl
 
 The network will default to a lenient threshold signature endorsement policy which allows all nodes to sign a given transaction. This can be changed by modifying the `CHAINCODE_ENDORSEMENT_POLICY` and `ENDORSEMENT_SIGNATURE_SCHEME` environment variables in the beggining of the `start.sh` script. The first flag is the standard endorsement Hyperledger Fabric policy configuration, while the second is what allows the blockchain to decide whether to use threshold signatures or multi-signatures to sign and verify transactions. These flags will be used to initiate the test chaincode named `xcc` provided in `chaincode\xcc`. It's important to note that these configurations are related with chaincode configuration and not with the network itself, which could be running different and multiple chaincodes.
 
-You can explore further blockchain network configuration options [here](demo/blockchain-network/README.md)
+You can explore further blockchain network configuration options [here](demo/blockchain-network/README.md).
 
 #### 2a. Booting up a Smart Hub
 
