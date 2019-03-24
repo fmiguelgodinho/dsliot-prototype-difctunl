@@ -34,7 +34,7 @@ What you'll need to install:
   * Golang 1.10
   * Docker version >= 17
   * Docker Compose version >= 17
-  * Java Unix Domain Sockets (https://github.com/mcfunley/juds) and all underlying dependencies
+  * <del>Java Unix Domain Sockets (https://github.com/mcfunley/juds) and all underlying dependencies</del> (Not needed, it's included in the containers)
   
 * For the smart hub layer
   * Java 9
